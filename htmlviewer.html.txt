@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <title>Carta mágica para Rebeca</title>
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap" rel="stylesheet">
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #1a1a1a;
+        height: 100vh;
+        overflow: hidden;
+        font-family: 'IM Fell English SC', serif;
+        color: #fdf5e6;
+      }
+
+      .wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        z-index: 2;
+      }
+
+      .envelope {
+        background: #8b5e3c;
+        border: 4px solid #d2b48c;
+        border-radius: 12px;
+        width: 640px;
+        max-width: 90%;
+        padding: 40px;
+        box-shadow: 0 0 30px #000;
+        text-align: center;
+        position: relative;
+        transform: scale(0.9);
+        opacity: 0;
+        transition: all 1.5s ease;
+      }
+
+      .envelope.show {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      .hogwarts-seal {
+        width: 100px;
+        margin-bottom: 20px;
+      }
+
+      h1 {
+        font-size: 32px;
+        margin-bottom: 10px;
+        color: #ffd700;
+      }
+
+      p {
+        font-size: 18px;
+        line-height: 1.6;
+        margin: 10px 0;
+      }
+
+      .signature {
+        margin-top: 20px;
+        font-style: italic;
+        font-size: 16px;
+      }
+
+      .photo-container {
+        margin-top: 30px;
+        animation: fadeIn 3s ease 2s forwards;
+        opacity: 0;
+      }
+
+      .photo-container img {
+        width: 220px;
+        border: 4px solid gold;
+        border-radius: 12px;
+        box-shadow: 0 0 20px #ffd700aa;
+        transform: scale(0.9);
+        transition: transform 0.3s ease;
+      }
+
+      .photo-container img:hover {
+        transform: scale(1.05);
+      }
+
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+
+      .open-btn {
+        background-color: #daa520;
+        color: #000;
+        border: none;
+        padding: 14px 28px;
+        font-size: 22px;
+        font-weight: bold;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.4s ease;
+        text-shadow: 1px 1px #fff;
+        box-shadow: 0 0 15px #ffd700;
+        z-index: 3;
+        margin-bottom: 30px;
+      }
+
+      .open-btn:hover {
+        background-color: #ffd700;
+        transform: scale(1.05);
+      }
+
+      audio {
+        display: none;
+      }
+
+      .particles {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        overflow: hidden;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .particle {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background: gold;
+        border-radius: 50%;
+        animation: float 10s linear infinite;
+        opacity: 0.8;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(100vh) scale(0.5);
+          opacity: 0;
+        }
+
+        50% {
+          opacity: 1;
+        }
+
+        100% {
+          transform: translateY(-10vh) scale(1.2);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <button class="open-btn" onclick="openLetter()">Abrir carta de Hogwarts 🦉</button>
+      <div id="scroll" class="envelope">
+        <img class="hogwarts-seal" src="https://i.imgur.com/GpJgK9K.png" alt="Sello de Hogwarts">
+        <h1>Desde el despacho del Profesor Dumbledore</h1>
+        <p> Estimada Rebeca, <br>
+          <br> Me complace informarte que, en honor a tu cumpleaños, los pasillos de Hogwarts se han llenado de magia adicional. Esta carta fue escrita con tinta encantada y entregada por una lechuza entrenada personalmente por Hagrid. <br>
+          <br> Los profesores, fantasmas y retratos del castillo te envían sus más cálidos deseos. Que este nuevo ciclo esté lleno de pociones de alegría, escobas de aventuras, y hechizos de amor verdadero. <br>
+          <br> No olvides que la verdadera magia está en el corazón de quienes creen en lo imposible.
+        </p>
+        <div class="signature"> Feliz cumpleaños, bruja extraordinaria 🪄 <br> Con afecto mágico, <br> Tu amigo muggle Roberto </div>
+        <div class="photo-container">
+          <img src="e34848c1-ffbf-4d15-a95e-aa785a487afb.png" alt="Rebeca sonriente">
+        </div>
+      </div>
+      <audio id="bgMusic" loop>
+        <source src="https://dl.sndup.net/4x6c/HedwigsTheme.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="particles" id="particles"></div>
+    <script>
+      function openLetter() {
+        document.getElementById('scroll').classList.add('show');
+        document.querySelector('.open-btn').style.display = 'none';
+        document.getElementById('bgMusic').play();
+      }
+      const particlesContainer = document.getElementById('particles');
+      for (let i = 0; i < 80; i++) {
+        const p = document.createElement('div');
+        p.classList.add('particle');
+        p.style.left = Math.random() * 100 + 'vw';
+        p.style.animationDuration = (5 + Math.random() * 5) + 's';
+        p.style.animationDelay = (Math.random() * 5) + 's';
+        particlesContainer.appendChild(p);
+      }
+    </script>
+  </body>
+</html>
